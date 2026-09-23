@@ -398,31 +398,52 @@ const App = {
     container.innerHTML = html;
   },
 
+  getSemesterTheme(id) {
+    const themes = {
+      'sem-1': { base: '#b45309', g1: '#d97706', g2: '#f59e0b', text: '#78350f' },
+      'sem-2': { base: '#0369a1', g1: '#0284c7', g2: '#38bdf8', text: '#0c4a6e' },
+      'sem-3': { base: '#5b21b6', g1: '#7c3aed', g2: '#a78bfa', text: '#3b0764' },
+      'sem-4': { base: '#9f1239', g1: '#e11d48', g2: '#fb7185', text: '#881337' }
+    };
+    return themes[id] || themes['sem-1'];
+  },
+
+  getSubjectTheme(id) {
+    const themes = {
+      'ai': { base: '#4c1d95', g1: '#6d28d9', g2: '#8b5cf6', text: '#2e1065' },
+      'ds': { base: '#065f46', g1: '#059669', g2: '#10b981', text: '#064e3b' },
+      'mf': { base: '#701a75', g1: '#a21caf', g2: '#d946ef', text: '#4a044e' },
+      'python': { base: '#075985', g1: '#0284c7', g2: '#38bdf8', text: '#082f49' },
+      'scm': { base: '#92400e', g1: '#d97706', g2: '#f59e0b', text: '#451a03' },
+      'cv': { base: '#115e59', g1: '#0f766e', g2: '#14b8a6', text: '#042f2e' }
+    };
+    return themes[id] || { base: '#1e293b', g1: '#334155', g2: '#475569', text: '#f8fafc' };
+  },
+
   renderLandingView() {
     const main = document.getElementById('main-content');
     if (!main) return;
 
     let foldersHtml = academicData.semesters.map(sem => {
       const isActive = sem.status === 'active';
+      const th = this.getSemesterTheme(sem.id);
       return `
-        <div class="folder-card ${isActive ? '' : 'disabled'}" onclick="${isActive ? `window.location.hash='${sem.id}'` : ''}">
-          <div class="folder-top-bar">
-            <span class="folder-badge ${isActive ? 'active-badge' : 'upcoming-badge'}">${isActive ? 'Active Semester' : 'Upcoming'}</span>
-            <svg class="folder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-            </svg>
+        <div class="folder-3d-card-wrapper">
+          <div class="folder-3d-wrapper ${isActive ? '' : 'disabled'}" style="--folder-base:${th.base};--folder-grad-1:${th.g1};--folder-grad-2:${th.g2};--folder-text:${th.text};" onclick="${isActive ? `window.location.hash='${sem.id}'` : ''}">
+            <div class="folder-3d-back"></div>
+            <div class="folder-paper-4"></div>
+            <div class="folder-paper-3"></div>
+            <div class="folder-paper-2"></div>
+            <div class="folder-paper-1"></div>
+            <div class="folder-3d-front">
+              <p class="folder-3d-title">${sem.title}</p>
+              <p class="folder-3d-sub">${isActive ? 'Active Curriculum' : 'Upcoming'}</p>
+            </div>
           </div>
-          <div class="folder-name">${sem.title}</div>
-          <div class="folder-desc">${sem.description}</div>
-          <div class="folder-meta">
-            <div class="folder-meta-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
-              <span>${sem.subjectsCount} Subjects</span>
-            </div>
-            <div class="folder-meta-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z"/></svg>
-              <span>${sem.assignmentsCount}</span>
-            </div>
+          <p class="folder-3d-caption">${sem.description}</p>
+          <div class="folder-3d-meta-pills">
+            <span class="folder-meta-pill">${sem.subjectsCount} Subjects</span>
+            <span class="folder-meta-pill" style="color:var(--accent);font-weight:700;">${sem.assignmentsCount}</span>
           </div>
         </div>
       `;
@@ -448,27 +469,25 @@ const App = {
     const subjects = academicData.subjects[sem.id] || [];
 
     let subjectsHtml = subjects.map(subj => {
+      const th = this.getSubjectTheme(subj.id);
       return `
-        <div class="folder-card" onclick="window.location.hash='${sem.id}/${subj.id}/concepts'">
-          <div class="folder-top-bar">
-            <span class="folder-badge active-badge">${subj.code}</span>
-            <svg class="folder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-            </svg>
+        <div class="folder-3d-card-wrapper">
+          <div class="folder-3d-wrapper" style="--folder-base:${th.base};--folder-grad-1:${th.g1};--folder-grad-2:${th.g2};--folder-text:${th.text};" onclick="window.location.hash='${sem.id}/${subj.id}/concepts'">
+            <div class="folder-3d-back"></div>
+            <div class="folder-paper-4"></div>
+            <div class="folder-paper-3"></div>
+            <div class="folder-paper-2"></div>
+            <div class="folder-paper-1"></div>
+            <div class="folder-3d-front">
+              <div style="font-size:10px;font-weight:800;letter-spacing:0.06em;color:${th.text};opacity:0.85;margin-bottom:3px;">${subj.code}</div>
+              <p class="folder-3d-title">${subj.name}</p>
+            </div>
           </div>
-          <div class="folder-name">${subj.name}</div>
-          <div class="folder-desc">${subj.subtitle}</div>
-          <div class="folder-meta">
-            <div class="folder-meta-item">
-              <span>${subj.stats.topics} Topics</span>
-            </div>
-            <div class="folder-meta-item">
-              <span style="color:var(--accent);font-weight:700;">${subj.stats.assignments} Solved Assignments</span>
-            </div>
-            <div class="folder-meta-item">
-              <span>${subj.stats.demos} Live Demos</span>
-            </div>
+          <p class="folder-3d-caption">${subj.subtitle}</p>
+          <div class="folder-3d-meta-pills">
+            <span class="folder-meta-pill">${subj.stats.topics} Topics</span>
+            <span class="folder-meta-pill" style="color:var(--accent);font-weight:700;">${subj.stats.assignments} Solved Assignments</span>
+            <span class="folder-meta-pill">${subj.stats.demos} Demos</span>
           </div>
         </div>
       `;
@@ -529,7 +548,20 @@ const App = {
         </button>
       </div>
 
-      <div id="tab-content-area"></div>
+      <!-- Reader Layout: Main Content + Sticky Desktop Sidebar (SOUNotes On This Page) -->
+      <div class="subject-reader-layout">
+        <div class="reader-main" id="tab-content-area"></div>
+        <aside class="reader-sidebar" id="reader-sidebar">
+          <div class="reader-sidebar-title">On This Page</div>
+          <nav id="reader-toc-links" class="reader-toc-nav"></nav>
+        </aside>
+      </div>
+
+      <!-- Floating Mobile Contents Button (SOUNotes) -->
+      <button class="mobile-contents-pill" id="mobile-contents-btn" onclick="App.openContentsModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+        <span>Contents</span>
+      </button>
     `;
 
     const contentArea = document.getElementById('tab-content-area');
@@ -544,6 +576,77 @@ const App = {
     } else if (tab === 'cheatsheet') {
       this.renderCheatsheetTab(subj, contentArea);
     }
+
+    this.buildTOC(subj, tab);
+  },
+
+  buildTOC(subj, tab) {
+    const tocNav = document.getElementById('reader-toc-links');
+    const mobileBtn = document.getElementById('mobile-contents-btn');
+    if (!tocNav) return;
+
+    let items = [];
+    if (tab === 'concepts') {
+      items = subj.topics.map(t => ({ id: `topic-${t.id}`, label: t.title }));
+    } else if (tab === 'assignments') {
+      items = subj.assignments.map((asg, idx) => ({ id: `asg-card-${asg.id}`, label: `Q${idx + 1}: ${asg.title.substring(0, 32)}...` }));
+    }
+
+    if (items.length > 0) {
+      if (mobileBtn) mobileBtn.style.display = 'flex';
+      tocNav.innerHTML = items.map(item => `
+        <a href="#${item.id}" class="reader-toc-link" onclick="App.scrollToElement('${item.id}', event)">
+          ${item.label}
+        </a>
+      `).join('');
+    } else {
+      if (mobileBtn) mobileBtn.style.display = 'none';
+      tocNav.innerHTML = `<span style="font-size:12px;color:var(--text-muted);">No section anchors.</span>`;
+    }
+  },
+
+  scrollToElement(id, event) {
+    if (event) event.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // If assignment card, open it
+      if (el.classList.contains('assignment-card')) {
+        el.classList.add('open');
+      }
+    }
+    const modal = document.getElementById('contents-modal');
+    if (modal) modal.classList.remove('open');
+  },
+
+  openContentsModal() {
+    let modal = document.getElementById('contents-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.className = 'search-modal';
+      modal.id = 'contents-modal';
+      modal.innerHTML = `
+        <div class="search-modal-header">
+          <div style="font-size:16px;font-weight:800;color:var(--text-primary);flex:1;">
+            Jump To Section
+          </div>
+          <button class="btn-secondary" onclick="document.getElementById('contents-modal').classList.remove('open')" style="padding:8px 12px;">Close</button>
+        </div>
+        <div class="search-results-list" id="contents-modal-list"></div>
+      `;
+      document.getElementById('app-container').appendChild(modal);
+    }
+
+    const list = document.getElementById('contents-modal-list');
+    const tocNav = document.getElementById('reader-toc-links');
+    if (list && tocNav) {
+      list.innerHTML = Array.from(tocNav.querySelectorAll('a')).map(a => `
+        <div class="search-result-item" onclick="App.scrollToElement('${a.getAttribute('href').replace('#', '')}')">
+          <div class="search-result-title">${a.innerText}</div>
+        </div>
+      `).join('');
+    }
+    modal.classList.add('open');
   },
 
   renderConceptsTab(subj, container) {
