@@ -27,19 +27,27 @@ University classrooms, computer labs, and lecture halls frequently suffer from w
 |---|---|---|---|
 | **AIML-101** | **Artificial Intelligence** | Rational Agents, PEAS Framework, Search Algorithms, Heuristics, Minimax, Alpha-Beta, Tic-Tac-Toe Strategies | 20 Problems (Theory Assignment 1) |
 | **AIML-102** | **Data Structures using C/C++** | Pointers, Dynamic Memory, OOP, Operator Overloading, Friends, Templates | 49 Programs (C Practical, DS Practical 1 & 2) |
-| **AIML-103** | **Mathematical Foundation** | Set Theory, De Morgan's Laws, 2D/3D Geometry, Planes, Hyperplanes, Least Squares Regression | 54 Problems (Part-A, Part-B, Test Paper) |
+| **AIML-103** | **Mathematical Foundation** | Set Theory, De Morgan's Laws, 2D/3D Geometry, Planes, Hyperplanes, Least Squares Regression | 55 Problems (Part-A, Part-B, Test Paper) |
 | **AIML-104** | **Python Programming** | Core Logic, Number Theory, Pattern Generation Algorithms, Data Structures | 45 Programs (Practical Assignment 1) |
 | **AIML-105** | **Scientific Computing** | Computational Errors, Root Finding (Bisection, Regula-Falsi, Secant, Newton-Raphson) | 7 Numerical Analyses with Iteration Tables |
-| **AIML-106** | **Computer Vision** | Image Matrices, Spatial Convolutions, Sobel Edge Filters, OpenCV Setup | Foundation Lab Exercises |
+| **AIML-106** | **Computer Vision** | Image Matrices, Spatial Convolutions, Sobel Edge Filters, Canny Pipeline, Homography | 4 Foundation Lab Exercises |
+| **TOTAL** | **All 6 Core Subjects** | **Complete Sem-1 Theoretical & Practical Syllabus** | **180 Solved Assignments** |
 
 ---
 
 ## Interactive Simulators & Labs
 
-- **AI Search Workbench**: Play Tic-Tac-Toe against AI with Strategy-3 (Heuristic Production Rules) or full Minimax game tree search, with real-time rule logging. Includes step-by-step BFS vs DFS state space visualizer.
-- **Scientific Computing Root Finder**: Computes numerical roots for equations (e.g. \(x^3 - 2x - 5\), \(x^3 - 15.2x + 13.2\)) with step-by-step iteration tables.
-- **Mathematical Foundation Solvers**: Least Squares linear regression line calculator (\(y = mx + c\)) and 2D coordinate distance/line property solver.
-- **Data Structures Simulator**: Interactive C++ Complex class operator overloading and member function invocation tracker.
+1. **AI Game & Search Workbench**: Play Tic-Tac-Toe against AI with Strategy-3 (Heuristic Production Rules) or full Minimax game tree search, with real-time rule logging. Includes step-by-step BFS vs DFS state space visualizer.
+2. **Scientific Computing Root Finder**: Computes numerical roots for equations (e.g. \(x^3 - 2x - 5\), \(x^3 - 15.2x + 13.2\)) with live convergence iteration tables.
+3. **Mathematical Foundation Solvers**:
+   - 3-Set Venn Diagram Calculator: Solves assignments Q8, Q9, and Q10 dynamically, calculating all 8 disjoint regions and set cardinalities.
+   - Least Squares Linear Regression Calculator: Computes slope \(m\), intercept \(c\), and line \(y = mx + c\).
+   - 2D Coordinate Geometry Solver: Calculates distance, midpoint, slope, and line equation.
+4. **Data Structures Simulators**:
+   - C++ Complex Class Operator Overloading Simulator: Demonstrates `c1 + c2` and `c1 * c2` operator methods.
+   - Stack vs Heap Memory Model Visualizer: Illustrates pointer variables on the stack referencing dynamic contiguous arrays on the heap with allocation and `delete[]` deallocation.
+5. **Python Algorithmic Pattern Generator**: Interactive visualization of pattern algorithms from Q27-Q45 (Triangles, Inverted pyramids, Even numbers, Hourglass, Pascal's triangle) with dynamic row slider and loop index breakdown.
+6. **Computer Vision 2D Spatial Convolution Simulator**: Step-by-step 3x3 kernel convolution engine (Sobel X/Y, Gaussian, Sharpen, Box filter) across 5x5 image patches with full element-wise dot product breakdown.
 
 ---
 

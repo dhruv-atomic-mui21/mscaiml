@@ -124,7 +124,7 @@ const App = {
           <div style="font-size:11px;color:var(--success);font-weight:700;text-transform:uppercase;">Storage Health: Optimal</div>
           <div class="search-result-title">100% Prepared for Offline Classrooms</div>
           <div class="search-result-snippet" style="margin-top:6px;">
-            All portal code, stylesheets, 6 subject curricula, 80+ lecture notes, interactive simulation engines, and 130+ solved assignments have been pulled and stored in device cache memory.
+            All portal code, stylesheets, 6 subject curricula, 80+ lecture notes, interactive simulation engines, and 180 solved assignments have been pulled and stored in device cache memory.
           </div>
         </div>
 
@@ -741,12 +741,16 @@ const App = {
   renderDemosTab(subj, container) {
     if (subj.id === 'ai') {
       this.renderAIDemos(container);
-    } else if (subj.id === 'scm') {
+    } else if (subj.id === 'scm' || subj.id === 'scientific-computing') {
       this.renderSCMDemos(container);
-    } else if (subj.id === 'mf') {
+    } else if (subj.id === 'mf' || subj.id === 'mathematical-foundation') {
       this.renderMFDemos(container);
-    } else if (subj.id === 'ds') {
+    } else if (subj.id === 'ds' || subj.id === 'data-structures') {
       this.renderDSDemos(container);
+    } else if (subj.id === 'python') {
+      this.renderPythonDemos(container);
+    } else if (subj.id === 'cv' || subj.id === 'computer-vision') {
+      this.renderCVDemos(container);
     } else {
       container.innerHTML = `
         <div class="topic-card" style="text-align:center;padding:30px;">
@@ -1194,6 +1198,51 @@ const App = {
   // 3. Mathematical Foundation: Least Squares Line of Best Fit & Distance Solver
   renderMFDemos(container) {
     container.innerHTML = `
+      <!-- Venn Diagram 3-Set Calculator -->
+      <div class="demo-workbench">
+        <div class="demo-title">
+          <span>3-Set Venn Diagram Calculator & Region Resolver</span>
+        </div>
+        <div class="demo-desc">
+          Interactively solves 3-set cardinalities for assignments Q8, Q9, and Q10. Computes all 8 mutually exclusive disjoint regions, exact unions, and intersection subsets.
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+          <button class="btn-secondary" onclick="App.loadVennPreset('q8')" style="font-size:11px;padding:4px 8px;">Load Q8 (Social Media Survey)</button>
+          <button class="btn-secondary" onclick="App.loadVennPreset('q9')" style="font-size:11px;padding:4px 8px;">Load Q9 (Video Meet Survey)</button>
+          <button class="btn-secondary" onclick="App.loadVennPreset('q10')" style="font-size:11px;padding:4px 8px;">Load Q10 (Tech Club Enrollments)</button>
+        </div>
+        <div class="demo-controls-grid">
+          <div class="control-group">
+            <label class="control-label">Total Population N</label>
+            <input type="number" id="venn-n" class="control-input" value="1000">
+          </div>
+          <div class="control-group">
+            <label class="control-label">Set A, B, C Cardinalities</label>
+            <div style="display:flex;gap:4px;">
+              <input type="number" id="venn-na" class="control-input" value="280" placeholder="n(A)">
+              <input type="number" id="venn-nb" class="control-input" value="300" placeholder="n(B)">
+              <input type="number" id="venn-nc" class="control-input" value="420" placeholder="n(C)">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Pairwise Intersections (A&cap;B, B&cap;C, C&cap;A)</label>
+            <div style="display:flex;gap:4px;">
+              <input type="number" id="venn-nab" class="control-input" value="80" placeholder="n(AB)">
+              <input type="number" id="venn-nbc" class="control-input" value="50" placeholder="n(BC)">
+              <input type="number" id="venn-nca" class="control-input" value="100" placeholder="n(CA)">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Triple Intersection n(A &cap; B &cap; C)</label>
+            <div style="display:flex;gap:6px;">
+              <input type="number" id="venn-nabc" class="control-input" value="30" placeholder="n(ABC)">
+              <button class="btn-primary" onclick="App.runVennSolver()" style="white-space:nowrap;">Compute Regions</button>
+            </div>
+          </div>
+        </div>
+        <div id="mf-venn-output" style="margin-top:10px;"></div>
+      </div>
+
       <div class="demo-workbench">
         <div class="demo-title">
           <span>Least Squares Linear Regression Line Calculator</span>
@@ -1246,8 +1295,88 @@ const App = {
         <div id="mf-geo-output"></div>
       </div>
     `;
+    this.runVennSolver();
     this.runLeastSquares();
     this.runGeometrySolver();
+  },
+
+  loadVennPreset(key) {
+    if (key === 'q8') {
+      document.getElementById('venn-n').value = 1000;
+      document.getElementById('venn-na').value = 280;
+      document.getElementById('venn-nb').value = 300;
+      document.getElementById('venn-nc').value = 420;
+      document.getElementById('venn-nab').value = 80;
+      document.getElementById('venn-nbc').value = 50;
+      document.getElementById('venn-nca').value = 100;
+      document.getElementById('venn-nabc').value = 30;
+    } else if (key === 'q9') {
+      document.getElementById('venn-n').value = 1000;
+      document.getElementById('venn-na').value = 400;
+      document.getElementById('venn-nb').value = 350;
+      document.getElementById('venn-nc').value = 300;
+      document.getElementById('venn-nab').value = 150;
+      document.getElementById('venn-nbc').value = 120;
+      document.getElementById('venn-nca').value = 100;
+      document.getElementById('venn-nabc').value = 60;
+    } else if (key === 'q10') {
+      document.getElementById('venn-n').value = 800;
+      document.getElementById('venn-na').value = 300;
+      document.getElementById('venn-nb').value = 350;
+      document.getElementById('venn-nc').value = 250;
+      document.getElementById('venn-nab').value = 100;
+      document.getElementById('venn-nbc').value = 90;
+      document.getElementById('venn-nca').value = 80;
+      document.getElementById('venn-nabc').value = 50;
+    }
+    this.runVennSolver();
+  },
+
+  runVennSolver() {
+    const N = parseFloat(document.getElementById('venn-n')?.value || 0);
+    const nA = parseFloat(document.getElementById('venn-na')?.value || 0);
+    const nB = parseFloat(document.getElementById('venn-nb')?.value || 0);
+    const nC = parseFloat(document.getElementById('venn-nc')?.value || 0);
+    const nAB = parseFloat(document.getElementById('venn-nab')?.value || 0);
+    const nBC = parseFloat(document.getElementById('venn-nbc')?.value || 0);
+    const nCA = parseFloat(document.getElementById('venn-nca')?.value || 0);
+    const nABC = parseFloat(document.getElementById('venn-nabc')?.value || 0);
+    const out = document.getElementById('mf-venn-output');
+    if (!out) return;
+
+    // Disjoint regions
+    const onlyABC = nABC;
+    const onlyAB = nAB - nABC;
+    const onlyBC = nBC - nABC;
+    const onlyCA = nCA - nABC;
+    const onlyA = nA - onlyAB - onlyCA - onlyABC;
+    const onlyB = nB - onlyAB - onlyBC - onlyABC;
+    const onlyC = nC - onlyBC - onlyCA - onlyABC;
+
+    const unionTotal = onlyA + onlyB + onlyC + onlyAB + onlyBC + onlyCA + onlyABC;
+    const noneCount = N - unionTotal;
+    const exactlyOne = onlyA + onlyB + onlyC;
+    const exactlyTwo = onlyAB + onlyBC + onlyCA;
+    const atLeastTwo = exactlyTwo + onlyABC;
+
+    out.innerHTML = `
+      <div style="font-family:var(--font-mono);font-size:12px;background:var(--code-bg);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border-color);line-height:1.7;">
+        <div style="color:var(--accent);font-weight:700;font-size:13px;margin-bottom:6px;">8 Mutually Disjoint Regions:</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:6px;margin-bottom:10px;">
+          <div>&bull; Only Set A: <strong>${onlyA}</strong></div>
+          <div>&bull; Only Set B: <strong>${onlyB}</strong></div>
+          <div>&bull; Only Set C: <strong>${onlyC}</strong></div>
+          <div>&bull; Only A & B: <strong>${onlyAB}</strong></div>
+          <div>&bull; Only B & C: <strong>${onlyBC}</strong></div>
+          <div>&bull; Only C & A: <strong>${onlyCA}</strong></div>
+          <div>&bull; All Three (A&cap;B&cap;C): <strong>${onlyABC}</strong></div>
+          <div>&bull; Outside (None): <strong>${noneCount}</strong></div>
+        </div>
+        <div style="border-top:1px solid var(--border-color);padding-top:8px;color:var(--success);font-weight:700;">
+          Union n(A &cup; B &cup; C) = ${unionTotal} | Exactly One Course/Platform = ${exactlyOne} | At Least Two = ${atLeastTwo}
+        </div>
+      </div>
+    `;
   },
 
   runLeastSquares() {
@@ -1352,8 +1481,335 @@ const App = {
         </div>
         <div id="ds-complex-output"></div>
       </div>
+
+      <!-- Pointer Memory Model Visualizer -->
+      <div class="demo-workbench">
+        <div class="demo-title">
+          <span>C++ Memory Model Visualizer: Stack vs Heap Allocation</span>
+        </div>
+        <div class="demo-desc">
+          Visualizes stack pointer variables referencing dynamically allocated contiguous memory blocks on the heap via <code>new</code> and <code>delete[]</code>.
+        </div>
+        <div class="demo-controls-grid">
+          <div class="control-group">
+            <label class="control-label">Array Size to Allocate</label>
+            <input type="number" id="ds-mem-size" class="control-input" value="4" min="1" max="8">
+          </div>
+          <div class="control-group" style="justify-content:flex-end;">
+            <div style="display:flex;gap:6px;">
+              <button class="btn-primary" onclick="App.runPointerSim('alloc')">Execute: new int[N]</button>
+              <button class="btn-secondary" onclick="App.runPointerSim('free')">Execute: delete[] ptr</button>
+            </div>
+          </div>
+        </div>
+        <div id="ds-mem-output" style="margin-top:10px;"></div>
+      </div>
     `;
     this.runComplexOp('add');
+    this.runPointerSim('alloc');
+  },
+
+  runPointerSim(action) {
+    const size = parseInt(document.getElementById('ds-mem-size')?.value || 4);
+    const out = document.getElementById('ds-mem-output');
+    if (!out) return;
+
+    if (action === 'free') {
+      out.innerHTML = `
+        <div style="font-family:var(--font-mono);font-size:12px;background:var(--code-bg);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border-color);line-height:1.7;">
+          <div style="color:var(--danger);font-weight:700;">Heap Memory Deallocated: delete[] ptr;</div>
+          <div style="color:var(--text-muted);margin-top:4px;">
+            Stack pointer <code>ptr</code> still holds address 0x00A12480 (Dangling Pointer!). Best practice: assign <code>ptr = nullptr;</code> immediately to avoid undefined behavior.
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    let heapBlocks = [];
+    for (let i = 0; i < size; i++) {
+      heapBlocks.push(`
+        <div style="display:inline-block;border:1px solid var(--border-color);border-radius:var(--radius-sm);padding:6px 10px;margin:4px;background:var(--bg-tertiary);text-align:center;">
+          <div style="font-size:10px;color:var(--text-muted);">0x00A124${80 + i * 4}</div>
+          <div style="font-size:13px;font-weight:700;color:var(--accent);margin:2px 0;">[${(i + 1) * 10}]</div>
+          <div style="font-size:10px;color:var(--text-secondary);">ptr[${i}]</div>
+        </div>
+      `);
+    }
+
+    out.innerHTML = `
+      <div style="font-family:var(--font-mono);font-size:12px;background:var(--code-bg);padding:12px;border-radius:var(--radius-sm);border:1px solid var(--border-color);line-height:1.7;">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
+          <div style="border:1px solid var(--accent);border-radius:var(--radius-sm);padding:8px 12px;background:var(--bg-secondary);">
+            <div style="font-size:10px;color:var(--text-muted);">STACK FRAME (0x7FFD5A04)</div>
+            <div style="font-size:12px;font-weight:700;color:var(--text-primary);">int* ptr = 0x00A12480</div>
+          </div>
+          <div style="color:var(--accent);font-weight:800;font-size:18px;">&rarr; Points to &rarr;</div>
+          <div style="flex:1;">
+            <div style="font-size:10px;color:var(--text-muted);margin-bottom:4px;">HEAP CONTIGUOUS BLOCK (${size * 4} bytes total)</div>
+            <div style="display:flex;flex-wrap:wrap;">${heapBlocks.join('')}</div>
+          </div>
+        </div>
+        <div style="color:var(--success);font-weight:700;">
+          Pointer Arithmetic: *(ptr + 1) = ${20} | Memory span: 0x00A12480 - 0x00A124${80 + (size - 1) * 4}
+        </div>
+      </div>
+    `;
+  },
+
+  // 5. Python Interactive Demos: Algorithmic Pattern Generator & Pascal Triangle
+  renderPythonDemos(container) {
+    container.innerHTML = `
+      <div class="demo-workbench">
+        <div class="demo-title">
+          <span>Algorithmic Pattern & Pascal Triangle Generator</span>
+        </div>
+        <div class="demo-desc">
+          Dynamically visualizes the pattern generation algorithms from assignment problems Q27-Q45. Adjust rows in real time to inspect loop coordinate transformations.
+        </div>
+        <div class="demo-controls-grid">
+          <div class="control-group">
+            <label class="control-label">Pattern Selection</label>
+            <select id="py-pattern-select" class="control-select" onchange="App.runPatternGen()">
+              <option value="pascal">Q45: Pascal's Triangle</option>
+              <option value="star_tri">Q27: Star Left Triangle</option>
+              <option value="num_tri">Q29: Number Triangle (1, 1 2, 1 2 3...)</option>
+              <option value="inv_num">Q30: Inverted Pyramid of Numbers</option>
+              <option value="same_digit">Q32: Inverted Same Digit Pyramid</option>
+              <option value="floyd">Q35: Floyd's Triangle (&lt; 10)</option>
+              <option value="even_pyr">Q38: Even Number Pyramid (2, 4 6, 8 10 12...)</option>
+              <option value="horiz_tables">Q39: Horizontal Tables Pyramid</option>
+              <option value="mirrored">Q41: Mirrored Right-Angled Pyramid</option>
+              <option value="equi_star">Q42: Equilateral Star Triangle</option>
+              <option value="hourglass">Q44: Hourglass Star Pattern</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Row Count: <span id="py-row-val" style="color:var(--accent);font-weight:700;">5</span></label>
+            <input type="range" id="py-row-slider" min="3" max="9" value="5" class="control-input" oninput="document.getElementById('py-row-val').innerText=this.value; App.runPatternGen()">
+          </div>
+        </div>
+        <div id="py-pattern-output" style="margin-top:10px;"></div>
+      </div>
+    `;
+    this.runPatternGen();
+  },
+
+  runPatternGen() {
+    const pattern = document.getElementById('py-pattern-select')?.value || 'pascal';
+    const n = parseInt(document.getElementById('py-row-slider')?.value || 5);
+    const out = document.getElementById('py-pattern-output');
+    if (!out) return;
+
+    let ascii = '';
+    let formula = '';
+
+    if (pattern === 'pascal') {
+      formula = 'Binomial Coefficient: C(n, k) = n! / (k! * (n - k)!) | Cell[i][j] = Cell[i-1][j-1] + Cell[i-1][j]';
+      let triangle = [];
+      for (let i = 0; i < n; i++) {
+        let row = [1];
+        for (let j = 1; j < i; j++) {
+          row.push(triangle[i - 1][j - 1] + triangle[i - 1][j]);
+        }
+        if (i > 0) row.push(1);
+        triangle.push(row);
+      }
+      for (let i = 0; i < n; i++) {
+        let indent = '  '.repeat(n - i);
+        let vals = triangle[i].map(v => String(v).padStart(3, ' ')).join(' ');
+        ascii += indent + vals + '\n';
+      }
+    } else if (pattern === 'star_tri') {
+      formula = 'Outer loop i from 1..N: print("* " * i)';
+      for (let i = 1; i <= n; i++) {
+        ascii += '* '.repeat(i) + '\n';
+      }
+    } else if (pattern === 'num_tri') {
+      formula = 'Outer loop i from 1..N, Inner loop j from 1..i: print(j)';
+      for (let i = 1; i <= n; i++) {
+        let row = [];
+        for (let j = 1; j <= i; j++) row.push(j);
+        ascii += row.join(' ') + '\n';
+      }
+    } else if (pattern === 'inv_num') {
+      formula = 'Outer loop i from N down to 1: print(" "*(N-i) + " ".join(1..i))';
+      for (let i = n; i >= 1; i--) {
+        let row = [];
+        for (let j = 1; j <= i; j++) row.push(j);
+        ascii += ' '.repeat(n - i) + row.join(' ') + '\n';
+      }
+    } else if (pattern === 'same_digit') {
+      formula = 'Outer loop i from N down to 1: print((str(i) + " ") * i)';
+      for (let i = n; i >= 1; i--) {
+        ascii += (i + ' ').repeat(i) + '\n';
+      }
+    } else if (pattern === 'floyd') {
+      formula = 'Running counter curr incremented across inner loop columns';
+      let curr = 1;
+      for (let i = 1; i <= n; i++) {
+        let row = [];
+        for (let j = 0; j < i; j++) {
+          row.push(String(curr++).padStart(2, ' '));
+        }
+        ascii += row.join(' ') + '\n';
+      }
+    } else if (pattern === 'even_pyr') {
+      formula = 'Even numbers starting at 2: val += 2 in each column';
+      let val = 2;
+      for (let i = 1; i <= n; i++) {
+        let row = [];
+        for (let j = 0; j < i; j++) {
+          row.push(String(val).padStart(2, ' '));
+          val += 2;
+        }
+        ascii += '  '.repeat(n - i) + row.join('  ') + '\n';
+      }
+    } else if (pattern === 'horiz_tables') {
+      formula = 'Row i times Column j: print(i * j)';
+      for (let i = 1; i <= n; i++) {
+        let row = [];
+        for (let j = 1; j <= i; j++) {
+          row.push(String(i * j).padStart(3, ' '));
+        }
+        ascii += row.join(' ') + '\n';
+      }
+    } else if (pattern === 'mirrored') {
+      formula = 'print("  " * (N - i) + " ".join(1..i))';
+      for (let i = 1; i <= n; i++) {
+        let row = [];
+        for (let j = 1; j <= i; j++) row.push(j);
+        ascii += '  '.repeat(n - i) + row.join(' ') + '\n';
+      }
+    } else if (pattern === 'equi_star') {
+      formula = 'print(" " * (N - i) + "* " * i)';
+      for (let i = 1; i <= n; i++) {
+        ascii += ' '.repeat(n - i) + '* '.repeat(i) + '\n';
+      }
+    } else if (pattern === 'hourglass') {
+      formula = 'Upper inverted pyramid (N..1) followed by lower upright pyramid (2..N)';
+      for (let i = n; i >= 1; i--) {
+        ascii += ' '.repeat(n - i) + '* '.repeat(i) + '\n';
+      }
+      for (let i = 2; i <= n; i++) {
+        ascii += ' '.repeat(n - i) + '* '.repeat(i) + '\n';
+      }
+    }
+
+    out.innerHTML = `
+      <div style="font-family:var(--font-mono);font-size:12px;background:var(--code-bg);padding:14px;border-radius:var(--radius-sm);border:1px solid var(--border-color);line-height:1.6;">
+        <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">Algorithmic Logic:</div>
+        <div style="color:var(--accent);font-weight:700;margin-bottom:12px;">${formula}</div>
+        <pre style="margin:0;font-size:13px;color:var(--text-primary);line-height:1.4;"><code>${ascii}</code></pre>
+      </div>
+    `;
+  },
+
+  // 6. Computer Vision Interactive Demos: 2D Spatial Convolution & Kernel Filters
+  renderCVDemos(container) {
+    container.innerHTML = `
+      <div class="demo-workbench">
+        <div class="demo-title">
+          <span>2D Spatial Convolution & Kernel Filter Simulator</span>
+        </div>
+        <div class="demo-desc">
+          Calculates discrete 2D spatial convolution \( (I * K)(r, c) = \sum_{u, v} I(r-u, c-v) K(u, v) \) across a synthetic 5x5 image patch with edge and blur kernels.
+        </div>
+        <div class="demo-controls-grid">
+          <div class="control-group">
+            <label class="control-label">Select 3x3 Convolution Kernel</label>
+            <select id="cv-kernel-select" class="control-select" onchange="App.runConvSim()">
+              <option value="sobel_x">Sobel X (Vertical Edge Detector)</option>
+              <option value="sobel_y">Sobel Y (Horizontal Edge Detector)</option>
+              <option value="gaussian">Gaussian 3x3 Smoothing (1/16 [1 2 1; 2 4 2; 1 2 1])</option>
+              <option value="sharpen">Sharpen High-Pass ([0 -1 0; -1 5 -1; 0 -1 0])</option>
+              <option value="box">Box Filter (Uniform Average 1/9)</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Target Pixel Coordinate</label>
+            <div style="display:flex;gap:6px;">
+              <input type="number" id="cv-target-r" class="control-input" value="2" min="1" max="3" onchange="App.runConvSim()">
+              <input type="number" id="cv-target-c" class="control-input" value="2" min="1" max="3" onchange="App.runConvSim()">
+            </div>
+          </div>
+        </div>
+        <div id="cv-conv-output" style="margin-top:10px;"></div>
+      </div>
+    `;
+    this.runConvSim();
+  },
+
+  runConvSim() {
+    const kType = document.getElementById('cv-kernel-select')?.value || 'sobel_x';
+    const tr = parseInt(document.getElementById('cv-target-r')?.value || 2);
+    const tc = parseInt(document.getElementById('cv-target-c')?.value || 2);
+    const out = document.getElementById('cv-conv-output');
+    if (!out) return;
+
+    // 5x5 Synthetic Image
+    const img = [
+      [10, 10, 10, 80, 80],
+      [10, 10, 10, 80, 80],
+      [10, 10, 10, 80, 80],
+      [10, 10, 10, 80, 80],
+      [10, 10, 10, 80, 80]
+    ];
+
+    let kernel, kScale = 1.0;
+    if (kType === 'sobel_x') {
+      kernel = [[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]];
+    } else if (kType === 'sobel_y') {
+      kernel = [[-1, -2, -1], [0, 0, 0], [1, 2, 1]];
+    } else if (kType === 'gaussian') {
+      kernel = [[1, 2, 1], [2, 4, 2], [1, 2, 1]];
+      kScale = 1.0 / 16.0;
+    } else if (kType === 'sharpen') {
+      kernel = [[0, -1, 0], [-1, 5, -1], [0, -1, 0]];
+    } else {
+      kernel = [[1, 1, 1], [1, 1, 1], [1, 1, 1]];
+      kScale = 1.0 / 9.0;
+    }
+
+    let dotSum = 0;
+    let products = [];
+    for (let u = -1; u <= 1; u++) {
+      for (let v = -1; v <= 1; v++) {
+        let pVal = img[tr + u][tc + v];
+        let kVal = kernel[u + 1][v + 1];
+        let prod = pVal * kVal;
+        dotSum += prod;
+        products.push(`(${pVal} &times; ${kVal})`);
+      }
+    }
+
+    const finalVal = Math.round(dotSum * kScale);
+
+    out.innerHTML = `
+      <div style="font-family:var(--font-mono);font-size:12px;background:var(--code-bg);padding:14px;border-radius:var(--radius-sm);border:1px solid var(--border-color);line-height:1.7;">
+        <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px;">
+          <div>
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">3x3 Local Image Neighborhood around (${tr}, ${tc}):</div>
+            <table style="border-collapse:collapse;text-align:center;">
+              ${[-1,0,1].map(u => `<tr>${[-1,0,1].map(v => `<td style="border:1px solid var(--border-color);padding:4px 8px;background:${u===0&&v===0?'var(--accent-glow)':'transparent'}">${img[tr+u][tc+v]}</td>`).join('')}</tr>`).join('')}
+            </table>
+          </div>
+          <div>
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">Applied 3x3 Kernel:</div>
+            <table style="border-collapse:collapse;text-align:center;">
+              ${kernel.map(row => `<tr>${row.map(val => `<td style="border:1px solid var(--border-color);padding:4px 8px;color:var(--accent);">${val}</td>`).join('')}</tr>`).join('')}
+            </table>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);">Element-Wise Dot Product Sum:</div>
+        <div style="font-size:11px;word-break:break-all;color:var(--text-secondary);margin:4px 0;">
+          ${products.join(' + ')} = <strong>${dotSum}</strong>
+        </div>
+        <div style="color:var(--success);font-weight:700;font-size:14px;margin-top:6px;">
+          Filtered Output Pixel Intensity at (${tr}, ${tc}): ${finalVal}
+        </div>
+      </div>
+    `;
   },
 
   runComplexOp(op) {
