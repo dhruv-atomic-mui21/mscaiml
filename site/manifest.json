@@ -1,0 +1,17 @@
+{
+  "name": "MSc AIML",
+  "short_name": "MSc AIML",
+  "description": "Academic Portal for MSc AI & ML students - For the students, by the students",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0a0e17",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

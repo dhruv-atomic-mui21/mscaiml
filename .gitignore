@@ -1,0 +1,15 @@
+# Antigravity agent internal cache
+.antigravity/
+
+# Operating System & IDE metadata
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+.idea/
+
+# Node / Scratch temp
+node_modules/
+*.tmp
+*.log

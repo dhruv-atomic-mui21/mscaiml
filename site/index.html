@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>MSc AIML</title>
+  <meta name="description" content="Academic Portal for MSc AI & ML students - For the students, by the students. 100% offline-ready in classrooms.">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+  <div id="app-container">
+    
+    <!-- Top Sticky Application Bar -->
+    <header class="app-header">
+      <div class="brand-section" id="app-brand">
+        <div class="brand-icon">AI</div>
+        <div>
+          <div class="brand-title">MSc AIML</div>
+          <div class="brand-tagline-header">For the students, by the students</div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="offline-badge" id="offline-badge">
+          <span class="status-dot"></span>
+          <span>Offline Ready</span>
+        </div>
+        <button class="btn-icon" id="theme-toggle-btn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+          <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Clickable Breadcrumb Bar -->
+    <nav class="breadcrumb-bar" id="breadcrumb-bar" aria-label="Breadcrumb"></nav>
+
+    <!-- Slogan Hero Banner -->
+    <section class="slogan-hero">
+      <div class="motto-pill">Academic Initiative</div>
+      <h1 class="hero-title">For the students, by the students</h1>
+      <p class="hero-subtitle">
+        Curriculum notes, interactive concept visualizers, and verified assignment solutions. Pre-cached locally to operate without network in classroom dead zones.
+      </p>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:-6px;margin-bottom:12px;">
+        Curated by <strong style="color:var(--text-secondary);">Dhruv</strong> &bull; <a href="https://www.satyaneev.me" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-weight:600;">www.satyaneev.me</a>
+      </div>
+
+      <!-- Quick Search Bar -->
+      <div class="search-wrapper">
+        <div class="search-input-box">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input type="text" id="hero-search-input" class="search-input" placeholder="Search topics, assignments, C++/Python code, formulas..." autocomplete="off">
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Dynamic View Container -->
+    <main class="main-content" id="main-content"></main>
+
+    <!-- Academic Footer -->
+    <footer class="app-footer" style="padding:24px 16px 80px 16px;text-align:center;border-top:1px solid var(--border-color);background:var(--bg-secondary);margin-top:40px;">
+      <div style="font-size:14px;font-weight:800;color:var(--text-primary);margin-bottom:4px;">MSc AIML</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">For the students, by the students</div>
+      <div style="font-size:12px;color:var(--text-muted);">
+        Maintained by <strong>Dhruv</strong> &bull; <a href="https://www.satyaneev.me" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;font-weight:600;">www.satyaneev.me</a>
+      </div>
+    </footer>
+
+    <!-- Bottom Navigation Bar (Mobile First) -->
+    <nav class="bottom-nav">
+      <div class="nav-item active" id="nav-home">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span>Semesters</span>
+      </div>
+      <div class="nav-item" id="nav-subjects">
+        <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <span>Subjects</span>
+      </div>
+      <div class="nav-item" id="nav-demos">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>Live Demos</span>
+      </div>
+      <div class="nav-item" id="nav-search">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <span>Search</span>
+      </div>
+    </nav>
+
+    <!-- Fullscreen Search Modal -->
+    <div class="search-modal" id="search-modal">
+      <div class="search-modal-header">
+        <div class="search-input-box" style="flex:1;">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <input type="text" id="modal-search-input" class="search-input" placeholder="Type keyword...">
+        </div>
+        <button class="btn-secondary" id="close-search-btn" style="padding:10px 14px;">Close</button>
+      </div>
+      <div class="search-results-list" id="search-results"></div>
+    </div>
+
+    <!-- Offline Storage Diagnostic Modal -->
+    <div class="search-modal" id="offline-modal">
+      <div class="search-modal-header">
+        <div style="font-size:16px;font-weight:800;color:var(--text-primary);flex:1;">
+          Classroom Offline Readiness
+        </div>
+        <button class="btn-secondary" id="close-offline-btn" style="padding:8px 12px;">Close</button>
+      </div>
+      <div class="search-results-list" id="offline-status-details"></div>
+    </div>
+
+  </div>
+
+  <script src="./js/data.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
