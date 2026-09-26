@@ -72,11 +72,11 @@ Or connect the repository `https://github.com/dhruv-atomic-mui21/mscaiml.git` di
 ## Local Development & Testing
 
 ```bash
-# Launch a local server
-python -m http.server 8080 --directory site
+# Launch a local server (using dedicated port 5050 to avoid collision with standard dev servers)
+python -m http.server 5050 --directory site
 
 # Open in browser
-http://localhost:8080
+http://localhost:5050
 ```
 
 To test offline functionality:
