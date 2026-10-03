@@ -9,9 +9,13 @@ Desktop.ini
 .vscode/
 .idea/
 
-# Node / Scratch temp
+# Next.js build output
+.next/
+out/
+build/
 node_modules/
 *.tmp
 *.log
 __pycache__/
 *.pyc
+

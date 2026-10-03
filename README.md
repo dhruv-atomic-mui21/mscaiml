@@ -1,23 +1,19 @@
-# MSc AIML Academic Portal
+# MSc AIML Academic Portal & Interactive Labs
 
 > **"For the students, by the students"**  
 > Maintained by **Dhruv** &bull; [www.satyaneev.me](https://www.satyaneev.me)  
 > Repository: [github.com/dhruv-atomic-mui21/mscaiml](https://github.com/dhruv-atomic-mui21/mscaiml)
 
-A mobile-first, 100% offline-ready Progressive Web Application (PWA) designed to provide instant access to master's level curricula, comprehensive lecture notes, verified assignment solutions, and interactive simulators for difficult AI and mathematical concepts.
+A modern Next.js 14 academic repository engineered for master's degree students. Pre-rendered with 180 step-by-step verified assignment solutions, comprehensive curriculum notes, 3D folder visual navigation, and interactive mathematical and engineering simulators.
 
 ---
 
-## Classroom Offline Problem & Solution
+## Core Engineering Features
 
-### The Challenge
-University classrooms, computer labs, and lecture halls frequently suffer from weak mobile network coverage, Wi-Fi dead zones, or proxy restrictions.
-
-### The Solution
-- **Load Once, Offline Always**: Visiting the site once triggers an active background caching pipeline (`sw.js` + `CacheStorage`).
-- **Complete Payload Bundling**: All 6 subjects, 80+ lecture notes, and 130+ step-by-step solved assignments are bundled into a single local dataset (`data.js`).
-- **Zero External CDNs at Runtime**: All styles, icons, fonts, and scripts are served locally from device memory.
-- **PWA Installation**: Supports 1-tap "Add to Home Screen" on iOS, Android, macOS, and Windows.
+- **Next.js 14 App Router & Static Generation (SSG)**: Out-of-the-box compatibility with Vercel edge deployment. Every subject, topic, and assignment is pre-rendered for instant load times.
+- **Client-Side Instant Search**: Full-text client search across all 180 assignments and curriculum topics (`Ctrl+K` / `Cmd+K`).
+- **3D Folder Architecture**: Realistic perspective folder flap design, layered paper peek, and contextual metadata inspired by modern digital archives.
+- **Zero Emojis**: Clean SVG vector iconography and strict technical layout throughout.
 
 ---
 
@@ -26,63 +22,67 @@ University classrooms, computer labs, and lecture halls frequently suffer from w
 | Subject Code | Subject Name | Key Focus Areas | Solved Assignments |
 |---|---|---|---|
 | **AIML-101** | **Artificial Intelligence** | Rational Agents, PEAS Framework, Search Algorithms, Heuristics, Minimax, Alpha-Beta, Tic-Tac-Toe Strategies | 20 Problems (Theory Assignment 1) |
-| **AIML-102** | **Data Structures using C/C++** | Pointers, Dynamic Memory, OOP, Operator Overloading, Friends, Templates | 49 Programs (C Practical, DS Practical 1 & 2) |
-| **AIML-103** | **Mathematical Foundation** | Set Theory, De Morgan's Laws, 2D/3D Geometry, Planes, Hyperplanes, Least Squares Regression | 55 Problems (Part-A, Part-B, Test Paper) |
-| **AIML-104** | **Python Programming** | Core Logic, Number Theory, Pattern Generation Algorithms, Data Structures | 45 Programs (Practical Assignment 1) |
-| **AIML-105** | **Scientific Computing** | Computational Errors, Root Finding (Bisection, Regula-Falsi, Secant, Newton-Raphson) | 7 Numerical Analyses with Iteration Tables |
-| **AIML-106** | **Computer Vision** | Image Matrices, Spatial Convolutions, Sobel Edge Filters, Canny Pipeline, Homography | 4 Foundation Lab Exercises |
+| **AIML-102** | **Data Structures using C/C++** | Pointers, Dynamic Memory, Stack vs Heap, BST, Linked Lists, Operator Overloading | 49 Programs (C Practical, DS Practical 1 & 2) |
+| **AIML-103** | **Mathematical Foundation** | Set Theory, 3-Set Venn Diagrams, 2D/3D Coordinate Geometry, Section Ratios, Least Squares Regression | 55 Problems (Part-A, Part-B, Test Paper) |
+| **AIML-104** | **Python Programming** | Core Logic, Number Theory, Pattern Generation Algorithms, Data Structures, Pascal's Triangle | 45 Programs (Practical Assignment 1) |
+| **AIML-105** | **Scientific Computing** | Computational Errors, Root Finding (Bisection, Regula-Falsi, Secant, Newton-Raphson), IEEE-754 Precision | 7 Numerical Analyses with Iteration Tables |
+| **AIML-106** | **Computer Vision** | Image Matrices, Spatial Convolutions, Sobel Edge Filters, Laplacian, Gaussian Filtering | 4 Foundation Lab Exercises |
 | **TOTAL** | **All 6 Core Subjects** | **Complete Sem-1 Theoretical & Practical Syllabus** | **180 Solved Assignments** |
 
 ---
 
-## Interactive Simulators & Labs
+## Interactive Engineering & Mathematical Simulators
 
-1. **AI Game & Search Workbench**: Play Tic-Tac-Toe against AI with Strategy-3 (Heuristic Production Rules) or full Minimax game tree search, with real-time rule logging. Includes step-by-step BFS vs DFS state space visualizer.
-2. **Scientific Computing Root Finder**: Computes numerical roots for equations (e.g. \(x^3 - 2x - 5\), \(x^3 - 15.2x + 13.2\)) with live convergence iteration tables.
-3. **Mathematical Foundation Solvers**:
-   - 3-Set Venn Diagram Calculator: Solves assignments Q8, Q9, and Q10 dynamically, calculating all 8 disjoint regions and set cardinalities.
-   - Least Squares Linear Regression Calculator: Computes slope \(m\), intercept \(c\), and line \(y = mx + c\).
-   - 2D Coordinate Geometry Solver: Calculates distance, midpoint, slope, and line equation.
-4. **Data Structures Simulators**:
-   - C++ Complex Class Operator Overloading Simulator: Demonstrates `c1 + c2` and `c1 * c2` operator methods.
-   - Stack vs Heap Memory Model Visualizer: Illustrates pointer variables on the stack referencing dynamic contiguous arrays on the heap with allocation and `delete[]` deallocation.
-5. **Python Algorithmic Pattern Generator**: Interactive visualization of pattern algorithms from Q27-Q45 (Triangles, Inverted pyramids, Even numbers, Hourglass, Pascal's triangle) with dynamic row slider and loop index breakdown.
-6. **Computer Vision 2D Spatial Convolution Simulator**: Step-by-step 3x3 kernel convolution engine (Sobel X/Y, Gaussian, Sharpen, Box filter) across 5x5 image patches with full element-wise dot product breakdown.
+1. **Data Structures Lab**:
+   - **Stack vs Heap Memory Model**: Visualizes stack pointer addresses referencing contiguous heap blocks with `new int[N]` allocation, `delete[] ptr` deallocation, and dangling pointer diagnostics.
+   - **Binary Search Tree (BST) Visualizer**: Dynamic SVG node layout with interactive insertion and step-by-step animated Inorder, Preorder, and Postorder traversals.
+   - **Stack & Queue Visualizer**: Push/Pop (LIFO) and Enqueue/Dequeue (FIFO) animated container states.
+   - **Complex Number Operator Overloading**: Interactive C++ binary operator (`+`, `-`, `*`) evaluator with signatures and mathematical proofs.
+
+2. **Scientific Computing Lab**:
+   - **Continuous Root Finder & Live Curve Plotter**: HTML5 Canvas graphing $f(x)$ with step-by-step tangent line projections (Newton-Raphson), interval brackets (Bisection), and secant trajectories with error tolerance.
+   - **IEEE-754 Floating-Point Precision Lab**: 32-bit single-precision layout breakdown (1 sign bit, 8-bit biased exponent, 23-bit mantissa) and machine roundoff analysis.
+
+3. **Mathematical Foundation Lab**:
+   - **3-Set Venn Diagram Calculator**: Dynamic SVG region visualization solving all 8 mutually exclusive subsets for assignments Q8, Q9, and Q10.
+   - **Least Squares Best-Fit Line Canvas**: Live calculation of normal equations $\sum y = m\sum x + nc$, drawing data points, regression line $y = mx + c$, and vertical residual error drops $(y_i - \hat{y}_i)$.
+   - **2D Geometry & Section Ratio Solver**: Euclidean distance, midpoint, slope, standard line equation $Ax + By + C = 0$, and internal section points.
+
+4. **AI Reasoning Lab**:
+   - Tic-Tac-Toe Game Search: Strategy-3 production heuristic rules vs optimal Minimax utility evaluation.
+   - State space graph traversal: BFS (FIFO Queue) vs DFS (LIFO Stack) step tracer.
+
+5. **Python & Computer Vision Labs**:
+   - Interactive nested loop pattern synthesizer and combinatorial Pascal's triangle.
+   - 2D spatial convolution kernel matrix inspector (Sobel X/Y, Gaussian, Laplacian).
 
 ---
 
-## Deployment to Vercel
+## Local Development & Build
 
-The repository includes pre-configured `vercel.json` routing files for seamless one-click Vercel deployments.
-
-### Deploying via Vercel CLI
 ```bash
 # Clone the repository
 git clone https://github.com/dhruv-atomic-mui21/mscaiml.git
 cd mscaiml
 
-# Deploy to Vercel
-vercel
-```
+# Install dependencies
+npm install
 
-Or connect the repository `https://github.com/dhruv-atomic-mui21/mscaiml.git` directly in your [Vercel Dashboard](https://vercel.com).
+# Start development server
+npm run dev
+
+# Build production bundle
+npm run build
+```
 
 ---
 
-## Local Development & Testing
+## Deployment to Vercel
 
-```bash
-# Launch a local server (using dedicated port 5050 to avoid collision with standard dev servers)
-python -m http.server 5050 --directory site
-
-# Open in browser
-http://localhost:5050
-```
-
-To test offline functionality:
-1. Open Chrome/Edge DevTools (`F12`).
-2. Navigate to the **Network** tab and toggle the throttling dropdown to **Offline** (or enable Airplane Mode).
-3. Refresh the page: the entire portal, all notes, and all solved assignments load instantly from device cache.
+The project is structured as a standard Next.js 14 App Router application:
+1. Push changes to `main` branch.
+2. Connect `https://github.com/dhruv-atomic-mui21/mscaiml.git` in Vercel.
+3. Vercel automatically detects Next.js, executes `npm run build`, and deploys globally with zero custom configuration.
 
 ---
 
